@@ -20,13 +20,12 @@ func sieveOfEratosthenes(primes chan<- int, N int) {
 }
 
 func main() {
-	 go sieveOfEratosthenes(primes,10000)
+	go sieveOfEratosthenes(primes, 10000)
 	for {
-		v := <- primes
-		if v != 0 {
-			fmt.Println("this is prime:", v)
-		} else {
+		v, ok := <-primes
+		if !ok {
 			return
 		}
+		fmt.Println("this is prime:", v)
 	}
 }
